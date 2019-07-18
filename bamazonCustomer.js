@@ -1,11 +1,13 @@
+require("dotenv").config()
 const mysql = require("mysql")
 const inquirer = require("inquirer")
+const password = process.env.SQL_PASSOWORD
 
 const connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "emerson1",
+    password: password,
     database: "bamazon"
 });
 
