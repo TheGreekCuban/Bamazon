@@ -50,7 +50,7 @@ const engageCustomer = (response) => {
             type: "number",
             name: "id",
             message: "What is the ID of the product you are interested in purchasing?",
-            validate: value => isNaN(value) === false ? true && value <= response.length : false
+            validate: value => isNaN(value) === false && value <= response.length ? true : false
         },
         {
             type: "number",
@@ -86,7 +86,9 @@ const updateDB = (answers, response) => {
             orderTotal(answers, response)
         })
     } else {
-        console.log(`=== Insufficient Quantity. Please edit your order! ===`)
+        console.log(`
+            === Insufficient Quantity. Please edit your order! ===`
+            )
         engageCustomer(response)
     }
 }
@@ -100,7 +102,9 @@ const orderTotal = (answers, response) => {
         if(response[answers.id-1].id === answers.id) {
             let orderTotal = (response[answers.id-1].price * answers.quantity).toFixed(2)
 
-            console.log("\n=== YOUR ORDER TOTAL IS: $" + orderTotal + " ====")
+            console.log(`
+            === YOUR ORDER TOTAL IS: $ ${orderTotal} ====`
+            )
    
             queryAllItems()  
         }
