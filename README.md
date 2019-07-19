@@ -33,6 +33,8 @@
 #### Add A New Item To The Catalogue (bamazonCustomer.js)
 ![](add_item.gif)
 
+## SUPERVISOR MODE
+
 ### The BamazonSupervisor.js is a node.js application that makes queries to a the bamazon.sql database. In this application we have added a new table named departments and changed the products table to have a product sales column.
 
 ### In the BamazonSupervisor.js application there are two options that npm inquirer prompts the supervisor with. The first allows the user to print the dynamically joined table that has the columns department name, product name, overhead costs, total sales and total profits. The total profits column is dynamically calculated each time a customer makes a sale.
