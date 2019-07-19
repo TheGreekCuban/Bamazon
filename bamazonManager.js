@@ -100,7 +100,7 @@ const addInventory = () => {
             type: "number",
             name: "id",
             message: "Please enter the ID number of the item you wish to order!",
-            validate: value => isNaN(value) === false && value <= response.length ? true : false
+            validate: value => isNaN(value) === false ? true : false
         },
         {
             type: "number",
