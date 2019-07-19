@@ -40,4 +40,4 @@
 ### The second function is the add department function which allows the supervisor to add a department to the departments table. When these departments have no products within them, the values on the dynamically created table show up as null.
 
 #### Full demonstration of printing the departments table, adding a department and showing the updated version.
-![](whole_demo.gif)
+![](whole_demo_supervisor.gif)
