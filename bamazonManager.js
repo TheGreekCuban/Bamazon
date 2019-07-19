@@ -35,10 +35,10 @@ const managerMenu = () => {
             case "View Products For Sale":
                 queryAll();
                 break;
-/*
             case "View Low Inventory":
                 queryLowInventory()
                 break;
+/*
             case "Add To Inventory":
                 addInventory()
                 break;
@@ -48,5 +48,25 @@ const managerMenu = () => {
 */
             default: console.log(`Invalid Command!`)
         }
+    })
+}
+
+const queryAll = () => {
+    connection.query("SELECT * FROM products", (error, response) => {
+        if (error) throw error
+
+        console.log(`
+            === ALL ITEMS IN STORE INVENTORY===`
+        )
+
+        response.forEach(element => {
+            console.log(`
+            ID: ${element.id}
+            Item: ${element.product_name}
+            Department: ${element.department_name}
+            Retail Price: ${element.price}
+            Quantity: ${element.stock_quantity}`
+            )
+        })
     })
 }
