@@ -13,13 +13,13 @@ CREATE TABLE products (
 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
 VALUES  ("2019 Macbook Pro", "Electronics", "1400.95", "69"),
-        ("Erganomic Logitec Bluetooth Mouse & Keyboard", "Electronics", "49.99", "250"),
+        ("Erganomic Logitec Bluetooth Mouse & Keyboard", "Electronics", "49.99", "49"),
         ("Xbox One", "Electronics", "499.75", "20"),
-        ("Garden Hose", "Garden/Outdoors", "19.95", "30"),
-        ("Roundup Pesticide & Cancer Falicitator", "Garden/Outdoors", "36.99", "2"),
-        ("Hoe", "Garden/Outdoors", "15.99", "44"),
+        ("Garden Hose", "Garden/Outdoors", "19.95", "2"),
+        ("Roundup Pesticide & Cancer Falicitator", "Garden/Outdoors", "36.99", "4"),
+        ("Hoe", "Garden/Outdoors", "15.99", "11"),
         ("Rake", "Garden/Outdoors", "12.99", "32"),
-        ("12 Inch Flower Pot", "Garden/Outdoors", "7.99", "155"),
-        ("NFL Football", "Sports", "29.99", "77"),
-        ("Fishing Rod & Starter Kit", "Sports", "69.99", "16"),
-        ("12 Guage Shotgun", "Sports", "499.99", "12");
+        ("12 Inch Flower Pot", "Garden/Outdoors", "7.99", "44"),
+        ("NFL Football", "Sports", "29.99", "22"),
+        ("Fishing Rod & Starter Kit", "Sports", "69.99", "3"),
+        ("12 Guage Shotgun", "Sports", "499.99", "5");

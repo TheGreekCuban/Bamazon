@@ -76,6 +76,7 @@ const queryLowInventory = () => {
         response.forEach(element => {
             if (element.stock_quantity < 6) {
                 console.log(`
+                === YOU MAY WANT TO STOCK UP ON THESE ITEMS ===
                 ID: ${element.id}
                 Item: ${element.product_name}
                 Department: ${element.department_name}
