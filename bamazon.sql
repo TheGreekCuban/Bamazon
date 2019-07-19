@@ -8,6 +8,7 @@ CREATE TABLE products (
     department_name VARCHAR (255) NOT NULL,
     price DECIMAL(10,2),
     stock_quantity INT UNSIGNED,
+    product_sales DECIMAL(10,2) NOT NULL DEFAULT "0.00",
     PRIMARY KEY (id)
 );
 
@@ -22,4 +23,18 @@ VALUES  ("2019 Macbook Pro", "Electronics", "1400.95", "69"),
         ("12 Inch Flower Pot", "Garden/Outdoors", "7.99", "44"),
         ("NFL Football", "Sports", "29.99", "22"),
         ("Fishing Rod & Starter Kit", "Sports", "69.99", "3"),
-        ("12 Guage Shotgun", "Sports", "499.99", "5");
+        ("12 Guage Shotgun", "Sports", "499.99", "5"),
+        ("Feta Cheese", "Dairy", "12.99", "22");
+
+CREATE TABLE departments (
+    department_id INT NOT NULL AUTO_INCREMENT,
+    department_name VARCHAR (255) NOT NULL,
+    over_head_costs DECIMAL(10,2),
+    PRIMARY KEY(department_id)
+);
+
+INSERT INTO departments (department_name, over_head_costs)
+    VALUES  ("Electronics", "1800" ),
+            ("Garden/Outdoors", "750"),
+            ("Sports", "1400"),
+            ("Dairy", "2500");

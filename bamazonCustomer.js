@@ -79,12 +79,12 @@ const updateDB = (answers, response) => {
         let newQuantity = response[answers.id-1].stock_quantity - answers.quantity
 
         //Once we have that value we run an update query on the table.
-        connection.query("UPDATE products SET stock_quantity = ? WHERE id = ?", [newQuantity, answers.id], (error, response) => {
-            if (error) throw error
+        connection.query("UPDATE products SET stock_quantity = ? WHERE id = ?", [newQuantity, answers.id], error => {
+            if (error) throw error})
+    
+        //Then we run the order total function to add up their final price.
+        orderTotal(answers, response)
         
-            //Then we run the order total function to add up their final price.
-            orderTotal(answers, response)
-        })
     } else {
         console.log(`
             === Insufficient Quantity. Please edit your order! ===`
@@ -94,19 +94,27 @@ const updateDB = (answers, response) => {
 }
 
 //This function compiles the order total by selecting the appropriate columns, matching them with the answers values and then multiplying the price by the desired quantity. 
-const orderTotal = (answers, response) => {
+const orderTotal = answers => {
     
-    connection.query("SELECT id, price FROM products", (error, response) => {
+    connection.query("SELECT id, price, product_sales FROM products", (error, response) => {
         if (error) throw error
- 
-        if(response[answers.id-1].id === answers.id) {
             let orderTotal = (response[answers.id-1].price * answers.quantity).toFixed(2)
-
+            let productSales = (response[answers.id-1].product_sales) + orderTotal
+            
+            queryAllItems()
+            
             console.log(`
             === YOUR ORDER TOTAL IS: $ ${orderTotal} ====`
             )
-   
-            queryAllItems()  
-        }
+            
+            updateProductSales(answers, orderTotal, productSales)  
+    })
+}
+
+const updateProductSales = (answers, orderTotal, productSales) => {
+    let newProductSales = parseFloat(orderTotal) + parseFloat(productSales)
+
+    connection.query(`UPDATE products SET product_sales = ${newProductSales} WHERE id = ${answers.id}`, error => {
+        if (error) throw error
     })
 }
