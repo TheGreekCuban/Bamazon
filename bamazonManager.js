@@ -70,3 +70,19 @@ const queryAll = () => {
         })
     })
 }
+
+const queryLowInventory = () => {
+    connection.query("SELECT * FROM products", (error, response) => {
+        response.forEach(element => {
+            if (element.stock_quantity < 6) {
+                console.log(`
+                ID: ${element.id}
+                Item: ${element.product_name}
+                Department: ${element.department_name}
+                Retail Price: ${element.price}
+                Quantity: ${element.stock_quantity}`
+                )   
+            } 
+        })
+    })
+}
