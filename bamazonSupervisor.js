@@ -45,10 +45,6 @@ const supervisorMenu = () => {
     })
 }
 
-/*
-When a supervisor selects View Product Sales by Department, the app should display a summarized table in their terminal/bash window. Use the table below as a guide.
-*/
-
 //This function will join the tables where necessary to prepare it to be logged
 const departmentJoin = () => {
     let queryOne = `SELECT d.department_id, d.department_name, d.over_head_costs, p.product_sales, p.product_name `
@@ -67,30 +63,29 @@ const departmentJoin = () => {
 //This function simply takes the response (newly joined table) as an object. It then updates the object with the dynamic calculation
 //of total profits. After that, we will call the console.table function on the array of objects.
 const calculateProfits = response => {
-    
-    response.forEach(element => {element.total_profit = element.product_sales - element.over_head_costs})
+    let placeHolder = response[0].department_name
+    let ohCounter = response[0].over_head_costs
 
+    response.forEach(element => {
+        if(element.department_name !== placeHolder) {
+            placeHolder = element.department_name
+            ohCounter = element.over_head_costs
+        }
+
+        element.total_profit = "$ " + (element.product_sales - ohCounter).toFixed(2)
+        element.over_head_costs = "$ " + element.over_head_costs
+        element.product_sales = "$ " + element.product_sales
+    })
     printTable(response)
 }
 
 //This will print the new array of objects reseponse into a table for the users.
-const printTable = response => {
-
-    response.forEach(element => {
-        console.table([{ 
-                'DEPARTMENT ID': element.department_id, 
-                'DEPARTMENT NAME': element.department_name, 
-                'OVER HEAD COSTS': element.over_head_costs , 
-                'PRODUCT SALES': element.product_sales, 
-                'TOTAL PROFITS': element.total_profit
-            }]);  
-    })
+const printTable = response => { 
+    console.table(response) 
+    supervisorMenu()
 }
 
-/*
-The total_profit column should be calculated on the fly using the difference between over_head_costs and product_sales. total_profit should not be stored in any database. You should use a custom alias.
-*/
-
+//This function will use inquirer to get the name and OH costs of a department then add it using a query.
 const createDepartment = () => {
     inquirer.prompt([
         {
