@@ -26,7 +26,7 @@ const managerMenu = () => {
             type: "list",
             name: "managerMenu",
             message: "Hello Mr. Vellios, how can I help our company do better today?",
-            choices: ["View Products For Sale", "View Low Inventory", "Add To Inventory", "Add New Product"]
+            choices: ["View Products For Sale", "View Low Inventory", "Add To Inventory", "Add New Product", "Exit"]
         }
     ])
     .then(answers => {
@@ -38,15 +38,16 @@ const managerMenu = () => {
             case "View Low Inventory":
                 queryLowInventory()
                 break;
-/*
+
             case "Add To Inventory":
                 addInventory()
                 break;
+
             case "Add New Product":
                 addNewPorduct();
                 break;
-*/
-            default: console.log(`Invalid Command!`)
+            case "Exit":
+                connection.end();
         }
     })
 }
@@ -69,14 +70,20 @@ const queryAll = () => {
             )
         })
     })
+    managerMenu();
 }
 
 const queryLowInventory = () => {
     connection.query("SELECT * FROM products", (error, response) => {
+        if (error) throw error
+
         response.forEach(element => {
+
             if (element.stock_quantity < 6) {
                 console.log(`
-                === YOU MAY WANT TO STOCK UP ON THESE ITEMS ===
+                === YOU MAY WANT TO STOCK UP ON THE ITEM BELOW ===`
+                )
+                console.log(`
                 ID: ${element.id}
                 Item: ${element.product_name}
                 Department: ${element.department_name}
@@ -84,6 +91,59 @@ const queryLowInventory = () => {
                 Quantity: ${element.stock_quantity}`
                 )   
             } 
+        })
+    })
+    managerMenu();
+}
+
+const addInventory = () => {
+    inquirer.prompt ([
+        {
+            type: "number",
+            name: "id",
+            message: "Please enter the ID number of the item you wish to order!"
+        }
+    ])
+    .then(answers => {
+        
+    })
+}
+
+const addNewPorduct = () => {
+    inquirer.prompt ([
+        {
+            type: "input",
+            name: "name",
+            message: "What is the name of the product being added?"
+        },
+        {
+            type: "input",
+            name: "department",
+            message: "What department does this product belong to?"
+        },
+        {
+            type: "number",
+            name: "price",
+            message: "What price would you like to sell this product for?"
+        },
+        {
+            type: "number",
+            name: "quantity",
+            message: "How many units you order?"
+        }
+    ])
+    .then(answers => {
+
+        let query = "INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES ?"
+        let values = [[answers.name, answers.department, answers.price, answers.quantity]]
+
+        connection.query(query, [values], (error, result) => {
+            if (error) throw error
+
+            console.log(`
+                === ITEM WAS ADDED ===
+                `)
+            managerMenu();
         })
     })
 }
