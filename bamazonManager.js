@@ -38,11 +38,9 @@ const managerMenu = () => {
             case "View Low Inventory":
                 queryLowInventory()
                 break;
-
             case "Add To Inventory":
                 addInventory()
                 break;
-
             case "Add New Product":
                 addNewPorduct();
                 break;
@@ -52,7 +50,7 @@ const managerMenu = () => {
     })
 }
 
-const queryAll = () => {
+const queryAll = (id) => {
     connection.query("SELECT * FROM products", (error, response) => {
         if (error) throw error
 
@@ -101,11 +99,21 @@ const addInventory = () => {
         {
             type: "number",
             name: "id",
-            message: "Please enter the ID number of the item you wish to order!"
+            message: "Please enter the ID number of the item you wish to order!",
+            validate: value => isNaN(value) === false && value <= response.length ? true : false
+        },
+        {
+            type: "number",
+            name: "orderAmount",
+            message: "How many would you like to order?"
         }
-    ])
-    .then(answers => {
-        
+    ]).then(answers => {
+        let id = answers.id
+        let queryOrderAmount = answers.orderAmount
+
+        printRow(id, queryOrderAmount)
+
+        connection.query(`UPDATE products SET stock_quantity = stock_quantity + ${queryOrderAmount} WHERE id = ${id}`, (error) => {if (error) throw error})
     })
 }
 
@@ -146,4 +154,29 @@ const addNewPorduct = () => {
             managerMenu();
         })
     })
+}
+
+//Create a function that prints one item on the menu when passed an id
+const printRow = (id, queryOrderAmount) => {
+
+    connection.query(`SELECT * FROM products WHERE id = ${id}`, (error, response) => {
+        if (error) throw error
+
+        //Made a separate condition so that if the id is provided this can be run in the add inventory function and will log just that one item.
+        response.forEach(element => {
+            if (element.id === id) {
+                console.log(`
+                ID: ${element.id}
+                Item: ${element.product_name}
+                Department: ${element.department_name}
+                Retail Price: ${element.price}
+                Quantity: ${element.stock_quantity}`
+                )   
+            }    
+            console.log(`
+            === You have ordered ${queryOrderAmount} units of ${element.product_name}! ===
+            `)
+        })
+    })
+    managerMenu();
 }
