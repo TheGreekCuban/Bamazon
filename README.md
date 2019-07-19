@@ -16,7 +16,7 @@
 
 ### The BamazonManager.js is a node.js application that makes queries to a the bamazon.sql database. The bamazon.sql database has various items with their name, quantity, department name and price. Unlike the bamazonCustomer.js file, this application gives the user access to information that would be typically desired by management and not for the eyes of the employee. 
 
-##The app begins by using the inquirer prompt to greet the manager and ask him/her what they would like to do. The manager can see the entire inventory, similar to the customer. In addition, there is an option to see inventory that has less than 6 units in stock. Next, the manager is able to use that information to order more units of the items needed. Lastly, the manager has the ability to add a completely new item to the catalogue which will update the database accordingly.
+## The app begins by using the inquirer prompt to greet the manager and ask him/her what they would like to do. The manager can see the entire inventory, similar to the customer. In addition, there is an option to see inventory that has less than 6 units in stock. Next, the manager is able to use that information to order more units of the items needed. Lastly, the manager has the ability to add a completely new item to the catalogue which will update the database accordingly.
 
 #### Query All Items (bamazonManager.js)
 ![](query_all_items.gif)
@@ -26,6 +26,8 @@
 
 #### Order More Units (bamazonCustomer.js)
 ![](add_inventory.gif)
+
+#### The Inventory Was Updated!
 ![](show_updated_inventory.gif)
 
 #### Add A New Item To The Catalogue (bamazonCustomer.js)
