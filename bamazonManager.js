@@ -145,7 +145,7 @@ const addNewPorduct = () => {
         let query = "INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES ?"
         let values = [[answers.name, answers.department, answers.price, answers.quantity]]
 
-        connection.query(query, [values], (error, result) => {
+        connection.query(query, [values], error => {
             if (error) throw error
 
             console.log(`
