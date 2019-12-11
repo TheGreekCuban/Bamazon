@@ -1,3 +1,5 @@
+## START UP INSTRUCTIONS
+
 ##### This is a backend application, to install it locally run the command: git clone git@github.com:TheGreekCuban/Bamazon.git
 ##### Once cloned, cd into the root directory and run npm install to install all the necessary packages
 
